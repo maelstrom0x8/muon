@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
     <file>Muon.qml</file>
+    <file>Controls.qml</file>
+    <file>PlaylistView.qml</file>
     </qresource>
 </RCC>

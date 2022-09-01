@@ -1,4 +1,5 @@
 #include "muon.h"
+#include "trackmodel.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -18,6 +19,11 @@ int main(int argc, char *argv[]) {
 
   QGuiApplication app(argc, argv);
   QQmlApplicationEngine engine;
+  auto root = engine.rootContext();
+  muon::TrackModel model;
+
+  root->setContextProperty("__model", &model);
+  
 
   const QUrl url(QStringLiteral("qrc:/Muon.qml"));
   QObject::connect(
