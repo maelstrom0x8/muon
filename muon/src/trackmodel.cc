@@ -1,25 +1,43 @@
 #include "trackmodel.h"
-
+#include <QDir>
+#include <QDirIterator>
 
 muon::TrackModel::TrackModel(QAbstractListModel *parent)
     : QAbstractListModel(parent) {
-  
+  folder = QDir::homePath().append("/Music");
+  loadData(folder);
+}
+
+void muon::TrackModel::loadData(const QString &_folder) {
+  beginResetModel();
+  if (!audioItems.isEmpty()) {
+    audioItems.clear();
+  }
+  auto _iter = QDirIterator(_folder, QStringList() << "*.mp3", QDir::Files,
+                            QDirIterator::Subdirectories);
+  while (_iter.hasNext()) {
+    audioItems.emplace_back(_iter.next());
+  }
+  audioItems.sort();
+  endResetModel();
 }
 
 int muon::TrackModel::rowCount(const QModelIndex& parent) const {
-  return data_.size();
+  return parent.isValid() ? 0 : audioItems.size();
 }
 
 
 QVariant muon::TrackModel::data(const QModelIndex& index, int role) const {
+  auto item = audioItems[(index.row())];
+
   if(!index.isValid())
     return QVariant();
-  if(index.row() >= data_.size())
+  if(index.row() >= audioItems.size())
     return QVariant();
   if(role == TitleRole)
-    return data_[index.row()];
+    return item.toUpper();
   if(role == ArtistRole)
-    return data_[index.row()];
+    return item.toLower();
   
   return QVariant();
 }

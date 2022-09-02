@@ -15,9 +15,11 @@ public:
   QVariant data(const QModelIndex &index,
                 int role = Qt::DisplayRole) const override;
   QHash<int, QByteArray> roleNames() const override;
+  void loadData(const QString& _folder);
 
 private:
-  QStringList data_;
+  QStringList audioItems;
+  QString folder;
 };
 } // namespace muon
 

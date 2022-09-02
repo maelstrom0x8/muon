@@ -12,6 +12,7 @@ Window {
 
   PlaylistView {
     id: _view
+    anchors.fill: parent
   }
 
 

@@ -8,9 +8,10 @@ Item {
     Rectangle {
       readonly property ListView __lv: ListView.view
       id: _rect
-      width: parent.width; height: 32
+      width: __lv.width ; height: 50
       color: __lv.currentIndex == index ? Qt.darker("#414141"): "#424242"
       Text{
+        id: titleTxt
         anchors {
           left: parent.left; leftMargin: 8; verticalCenter: parent.verticalCenter
         }
@@ -18,6 +19,14 @@ Item {
         text: title
         color: __lv.currentIndex == index ? "#efefef": "#efefef"
         font.pixelSize: 12
+      }
+      Text {
+        id: artistTxt
+        text: artist
+        anchors {
+          left: parent.left; leftMargin: 8; top: titleTxt.bottom; topMargin: 4;
+          verticalCenter: parent.verticalCenter
+        }
       }
       Rectangle{
         id: _sep
@@ -51,7 +60,7 @@ Item {
 
     ListView {
       id: _lv
-      width: 256; height: parent.height
+      width: parent.width; height: parent.height
       anchors.margins: 2
       anchors.left: parent.left
       model: __model
