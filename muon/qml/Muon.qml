@@ -1,6 +1,6 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Window
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Window 2.14
 import QtQuick.Layouts 1.14
 
 Window {
@@ -12,8 +12,21 @@ Window {
 
   PlaylistView {
     id: _view
-    anchors.fill: parent
+    anchors {
+      top: parent.top; left: parent.left; right: parent.right
+      bottom: _controls.top
+    }
   }
+
+  Controls {
+    id: _controls
+    height: 70
+    anchors {
+      left: parent.left; right: parent.right
+      bottom: parent.bottom
+    }
+  }
+
 
 
 }

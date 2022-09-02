@@ -3,6 +3,9 @@ import QtQuick.Controls 2.14
 
 
 Item {
+  id: _root
+
+
   Component {
     id: _listdelg
     Rectangle {
@@ -13,7 +16,7 @@ Item {
       Text{
         id: titleTxt
         anchors {
-          left: parent.left; leftMargin: 8; verticalCenter: parent.verticalCenter
+          left: parent.left; leftMargin: 8; top: parent.top; topMargin: 14
         }
 
         text: title
@@ -24,14 +27,15 @@ Item {
         id: artistTxt
         text: artist
         anchors {
-          left: parent.left; leftMargin: 8; top: titleTxt.bottom; topMargin: 4;
+          left: parent.left; leftMargin: 8; top: titleTxt.bottom; topMargin: 2;
           verticalCenter: parent.verticalCenter
         }
+        font.pixelSize: 10
       }
       Rectangle{
         id: _sep
         width: parent.width
-        height: .5
+        height: 4
         color: "#414141"
         anchors {
           bottom: parent.bottom; horizontalCenter: parent.horizontalCenter
@@ -41,13 +45,17 @@ Item {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: (mouse) => {
-        if(mouse.button === Qt.LeftButton)
-        {
-          __lv.currentIndex = index;
+          if(mouse.button === Qt.LeftButton) {
+            __lv.currentIndex = index;
+          }
+          else {
+            __lv.currentIndex = index;
+          }
         }
-        else {
-          __lv.currentIndex = index;
-        }
+        onDoubleClicked: (mouse) => {
+          if(mouse.button == Qt.LeftButton) {
+            console.log(file)
+          }
         }
       }
     }

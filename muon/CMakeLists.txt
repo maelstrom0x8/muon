@@ -45,7 +45,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Tsan")
   target_link_options(main PRIVATE -fsanitize=thread)
 endif(CMAKE_BUILD_TYPE STREQUAL "Tsan")
 
-target_link_libraries(main PUBLIC Qt6::Core Qt6::Quick Qt6::QuickControls2 Qt6::Sql)
+target_link_libraries(main PUBLIC Qt6::Core Qt6::Quick Qt6::QuickControls2)
 
 set_target_properties(main PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER muon.xio.org

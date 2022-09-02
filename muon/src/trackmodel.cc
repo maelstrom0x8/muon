@@ -6,6 +6,7 @@ muon::TrackModel::TrackModel(QAbstractListModel *parent)
     : QAbstractListModel(parent) {
   folder = QDir::homePath().append("/Music");
   loadData(folder);
+  info = new AudioInfo();
 }
 
 void muon::TrackModel::loadData(const QString &_folder) {
@@ -22,23 +23,24 @@ void muon::TrackModel::loadData(const QString &_folder) {
   endResetModel();
 }
 
-int muon::TrackModel::rowCount(const QModelIndex& parent) const {
+int muon::TrackModel::rowCount(const QModelIndex &parent) const {
   return parent.isValid() ? 0 : audioItems.size();
 }
 
-
-QVariant muon::TrackModel::data(const QModelIndex& index, int role) const {
+QVariant muon::TrackModel::data(const QModelIndex &index, int role) const {
   auto item = audioItems[(index.row())];
 
-  if(!index.isValid())
+  if (!index.isValid())
     return QVariant();
-  if(index.row() >= audioItems.size())
+  if (index.row() >= audioItems.size())
     return QVariant();
-  if(role == TitleRole)
-    return item.toUpper();
-  if(role == ArtistRole)
-    return item.toLower();
-  
+  if (role == TitleRole)
+    return (*info)(item)->getTitle();
+  if (role == ArtistRole)
+    return (*info)(item)->getArtist();
+  if (role == FileRole)
+    return (*info)(item)->getFileName();
+
   return QVariant();
 }
 
@@ -49,3 +51,10 @@ QHash<int, QByteArray> muon::TrackModel::roleNames() const {
   roles[FileRole] = "file";
   return roles;
 }
+
+void muon::TrackModel::setCurrentIndex(const QModelIndex &index) {
+  _currentIndex = index;
+  emit currentIndexChanged(_currentIndex);
+}
+
+QModelIndex muon::TrackModel::currentIndex() const { return _currentIndex; }

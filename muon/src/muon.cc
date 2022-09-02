@@ -9,14 +9,17 @@ muon::AudioInfo *muon::AudioInfo::operator()(const QString &filename) {
 }
 
 QString muon::AudioInfo::getTitle() const {
-  if (QString(ref.tag()->title().toCString()) == "")
+  if (QString(ref.tag()->title().toCString()).isEmpty())
     return QFileInfo(_filename).fileName();
   else
     return QString(ref.tag()->title().toCString());
 }
 
 QString muon::AudioInfo::getArtist() const {
-  return QString(ref.tag()->artist().toCString()).toUtf8();
+  auto title = QString(ref.tag()->artist().toCString()).toUtf8();
+  if(title.isEmpty())
+    return "<unknown>";
+  return title;
 }
 
 QString muon::AudioInfo::getFileName() const { return QString(_filename); }

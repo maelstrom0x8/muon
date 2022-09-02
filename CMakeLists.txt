@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_PREFIX_PATH $ENV{QTDIR})
 
-find_package(Qt6 6.2 COMPONENTS Core Quick Sql QuickControls2 REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Core Quick QuickControls2 REQUIRED)
 add_subdirectory(muon)
 
 option(MUON_BUILD_TESTS "Build all muon's tests" OFF)
